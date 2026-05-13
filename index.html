@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dream By Daylight — Creative Web Studio</title>
+    <meta name="description" content="Dream By Daylight is een creatief webdesign portfolio voor websites, visuele concepten en digitale ervaringen." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0d0d10;
+            --bg-soft: #15151b;
+            --text: #f5f1e8;
+            --muted: #aaa197;
+            --line: rgba(245, 241, 232, 0.13);
+            --card: rgba(255, 255, 255, 0.055);
+            --card-strong: rgba(255, 255, 255, 0.09);
+            --gold: #f4c76b;
+            --rose: #e87a90;
+            --violet: #8d7dff;
+            --blue: #6aa8ff;
+            --green: #88d8b0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 20% 10%, rgba(232, 122, 144, 0.20), transparent 28%),
+                radial-gradient(circle at 82% 18%, rgba(141, 125, 255, 0.22), transparent 30%),
+                radial-gradient(circle at 50% 80%, rgba(244, 199, 107, 0.12), transparent 32%),
+                var(--bg);
+            color: var(--text);
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.28;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 54px 54px;
+            mask-image: linear-gradient(to bottom, black, transparent 78%);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 40px));
+            margin-inline: auto;
+        }
+
+        .noise {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0.045;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(18px);
+            background: rgba(13, 13, 16, 0.72);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav {
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            background:
+                linear-gradient(135deg, rgba(244, 199, 107, 0.95), rgba(232, 122, 144, 0.8), rgba(141, 125, 255, 0.85));
+            color: #111;
+            box-shadow: 0 20px 60px rgba(232, 122, 144, 0.25);
+        }
+
+        .brand span:last-child {
+            font-size: 0.95rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            font-size: 0.88rem;
+            color: rgba(245, 241, 232, 0.72);
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-cta {
+            padding: 11px 16px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text) !important;
+        }
+
+        .hero {
+            min-height: calc(100vh - 78px);
+            display: grid;
+            align-items: center;
+            padding: 92px 0 78px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.08fr 0.92fr;
+            gap: 58px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: fit-content;
+            padding: 8px 13px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: rgba(245, 241, 232, 0.78);
+            background: rgba(255,255,255,0.045);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 99px;
+            background: var(--gold);
+            box-shadow: 0 0 22px var(--gold);
+        }
+
+        h1 {
+            margin-top: 26px;
+            font-family: "Playfair Display", serif;
+            font-size: clamp(4.2rem, 10vw, 10.5rem);
+            line-height: 0.82;
+            letter-spacing: -0.075em;
+            max-width: 900px;
+        }
+
+        .hero-word {
+            display: block;
+        }
+
+        .hero-word:nth-child(2) {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(245, 241, 232, 0.8);
+        }
+
+        .hero-copy {
+            margin-top: 32px;
+            max-width: 610px;
+            color: rgba(245, 241, 232, 0.74);
+            font-size: clamp(1rem, 2vw, 1.22rem);
+            line-height: 1.75;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 36px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 0 20px;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            border: 1px solid var(--line);
+            transition: transform .2s ease, background .2s ease, border-color .2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            background: var(--text);
+            color: #101014;
+            border-color: transparent;
+        }
+
+        .button-secondary {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+        }
+
+        .visual-card {
+            position: relative;
+            min-height: 560px;
+            border: 1px solid var(--line);
+            border-radius: 38px;
+            background:
+                linear-gradient(145deg, rgba(255,255,255,0.11), rgba(255,255,255,0.03)),
+                radial-gradient(circle at 30% 15%, rgba(244,199,107,0.26), transparent 28%),
+                radial-gradient(circle at 75% 65%, rgba(106,168,255,0.22), transparent 28%);
+            overflow: hidden;
+            box-shadow: 0 50px 120px rgba(0,0,0,0.38);
+        }
+
+        .visual-card::before {
+            content: "";
+            position: absolute;
+            inset: 28px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 30px;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(0.2px);
+        }
+
+        .orb.one {
+            width: 230px;
+            height: 230px;
+            left: 52px;
+            top: 78px;
+            background: linear-gradient(135deg, var(--gold), var(--rose));
+            box-shadow: 0 0 80px rgba(244,199,107,0.30);
+        }
+
+        .orb.two {
+            width: 155px;
+            height: 155px;
+            right: 56px;
+            bottom: 96px;
+            background: linear-gradient(135deg, var(--violet), var(--blue));
+            box-shadow: 0 0 80px rgba(141,125,255,0.35);
+        }
+
+        .floating-label {
+            position: absolute;
+            padding: 14px 16px;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            background: rgba(13,13,16,0.54);
+            backdrop-filter: blur(16px);
+            color: rgba(245,241,232,0.84);
+            font-size: 0.86rem;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.28);
+        }
+
+        .floating-label strong {
+            display: block;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .label-one {
+            left: 38px;
+            bottom: 48px;
+        }
+
+        .label-two {
+            right: 34px;
+            top: 48px;
+        }
+
+        .section {
+            padding: 98px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .section-header {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 48px;
+            align-items: end;
+            margin-bottom: 42px;
+        }
+
+        .section-kicker {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.78rem;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(2.7rem, 6vw, 5.8rem);
+            line-height: 0.9;
+            letter-spacing: -0.055em;
+        }
+
+        .section-text {
+            color: rgba(245,241,232,0.68);
+            line-height: 1.8;
+            font-size: 1.03rem;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 18px;
+        }
+
+        .project-card {
+            position: relative;
+            min-height: 420px;
+            border: 1px solid var(--line);
+            border-radius: 32px;
+            overflow: hidden;
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: var(--card);
+        }
+
+        .project-card.large {
+            grid-column: span 7;
+        }
+
+        .project-card.small {
+            grid-column: span 5;
+        }
+
+        .project-card:nth-child(1) {
+            background:
+                linear-gradient(to bottom, rgba(13,13,16,0.10), rgba(13,13,16,0.72)),
+                radial-gradient(circle at 30% 20%, rgba(244,199,107,0.55), transparent 34%),
+                radial-gradient(circle at 80% 70%, rgba(232,122,144,0.42), transparent 28%),
+                #211812;
+        }
+
+        .project-card:nth-child(2) {
+            background:
+                linear-gradient(to bottom, rgba(13,13,16,0.12), rgba(13,13,16,0.75)),
+                radial-gradient(circle at 70% 20%, rgba(141,125,255,0.55), transparent 32%),
+                radial-gradient(circle at 18% 80%, rgba(106,168,255,0.35), transparent 26%),
+                #121629;
+        }
+
+        .project-card:nth-child(3) {
+            background:
+                linear-gradient(to bottom, rgba(13,13,16,0.12), rgba(13,13,16,0.78)),
+                radial-gradient(circle at 25% 35%, rgba(136,216,176,0.42), transparent 30%),
+                radial-gradient(circle at 82% 70%, rgba(244,199,107,0.32), transparent 30%),
+                #102019;
+        }
+
+        .project-card:nth-child(4) {
+            background:
+                linear-gradient(to bottom, rgba(13,13,16,0.12), rgba(13,13,16,0.78)),
+                radial-gradient(circle at 65% 32%, rgba(232,122,144,0.44), transparent 32%),
+                radial-gradient(circle at 20% 70%, rgba(141,125,255,0.30), transparent 28%),
+                #25131b;
+        }
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .tag {
+            display: inline-flex;
+            padding: 7px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.16);
+            background: rgba(255,255,255,0.06);
+            color: rgba(245,241,232,0.78);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .project-number {
+            color: rgba(245,241,232,0.45);
+            font-weight: 900;
+        }
+
+        .project-card h3 {
+            max-width: 520px;
+            font-size: clamp(2rem, 4vw, 4rem);
+            line-height: 0.95;
+            letter-spacing: -0.06em;
+        }
+
+        .project-card p {
+            max-width: 520px;
+            color: rgba(245,241,232,0.68);
+            margin-top: 16px;
+            line-height: 1.7;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .service-card {
+            min-height: 260px;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            padding: 24px;
+            background: rgba(255,255,255,0.045);
+            transition: transform .2s ease, background .2s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.07);
+        }
+
+        .service-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            background: rgba(245,241,232,0.09);
+            margin-bottom: 28px;
+            font-weight: 900;
+        }
+
+        .service-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+            letter-spacing: -0.03em;
+        }
+
+        .service-card p {
+            color: rgba(245,241,232,0.62);
+            line-height: 1.7;
+            font-size: 0.94rem;
+        }
+
+        .about-panel {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 22px;
+            align-items: stretch;
+        }
+
+        .portrait-card,
+        .about-copy {
+            border: 1px solid var(--line);
+            border-radius: 34px;
+            background: rgba(255,255,255,0.048);
+            overflow: hidden;
+        }
+
+        .portrait-card {
+            min-height: 540px;
+            position: relative;
+            background:
+                radial-gradient(circle at 50% 30%, rgba(244,199,107,0.38), transparent 30%),
+                radial-gradient(circle at 50% 65%, rgba(141,125,255,0.36), transparent 32%),
+                #141419;
+        }
+
+        .portrait-card::after {
+            content: "DAYLIGHT / DIGITAL / DESIGN";
+            position: absolute;
+            left: 28px;
+            bottom: 28px;
+            color: rgba(245,241,232,0.55);
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            font-size: 0.78rem;
+        }
+
+        .abstract-shape {
+            position: absolute;
+            width: 62%;
+            aspect-ratio: 1;
+            left: 50%;
+            top: 48%;
+            transform: translate(-50%, -50%) rotate(-10deg);
+            border-radius: 38% 62% 58% 42% / 48% 42% 58% 52%;
+            background: linear-gradient(135deg, rgba(245,241,232,0.90), rgba(244,199,107,0.48), rgba(232,122,144,0.48));
+            box-shadow: 0 40px 120px rgba(232,122,144,0.22);
+        }
+
+        .about-copy {
+            padding: clamp(30px, 5vw, 58px);
+        }
+
+        .about-copy h2 {
+            margin-bottom: 28px;
+        }
+
+        .about-copy p {
+            color: rgba(245,241,232,0.70);
+            line-height: 1.85;
+            margin-bottom: 18px;
+            font-size: 1.05rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 36px;
+        }
+
+        .stat {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 18px;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.5rem;
+            letter-spacing: -0.06em;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 5px;
+            color: rgba(245,241,232,0.55);
+            font-size: 0.82rem;
+        }
+
+        .process-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .process-item {
+            display: grid;
+            grid-template-columns: 90px 1fr 220px;
+            gap: 22px;
+            align-items: center;
+            padding: 22px;
+            border: 1px solid var(--line);
+            border-radius: 26px;
+            background: rgba(255,255,255,0.045);
+        }
+
+        .process-item span {
+            color: var(--gold);
+            font-weight: 900;
+        }
+
+        .process-item h3 {
+            font-size: 1.35rem;
+            letter-spacing: -0.04em;
+        }
+
+        .process-item p {
+            color: rgba(245,241,232,0.60);
+            line-height: 1.65;
+            font-size: 0.94rem;
+        }
+
+        .contact-section {
+            padding: 110px 0;
+        }
+
+        .contact-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 42px;
+            padding: clamp(34px, 7vw, 80px);
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.095), rgba(255,255,255,0.035)),
+                radial-gradient(circle at 12% 20%, rgba(244,199,107,0.26), transparent 28%),
+                radial-gradient(circle at 86% 72%, rgba(141,125,255,0.30), transparent 30%);
+        }
+
+        .contact-card h2 {
+            max-width: 820px;
+        }
+
+        .contact-card p {
+            margin-top: 24px;
+            max-width: 650px;
+            color: rgba(245,241,232,0.68);
+            line-height: 1.8;
+            font-size: 1.08rem;
+        }
+
+        .contact-links {
+            margin-top: 36px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .footer {
+            padding: 34px 0;
+            border-top: 1px solid var(--line);
+            color: rgba(245,241,232,0.48);
+            font-size: 0.9rem;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: reveal .85s ease forwards;
+        }
+
+        .delay-1 { animation-delay: .12s; }
+        .delay-2 { animation-delay: .24s; }
+        .delay-3 { animation-delay: .36s; }
+
+        @keyframes reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 980px) {
+            .hero-grid,
+            .section-header,
+            .about-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .visual-card {
+                min-height: 430px;
+            }
+
+            .project-card.large,
+            .project-card.small {
+                grid-column: span 12;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-item {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                width: min(100% - 28px, 1180px);
+            }
+
+            .nav {
+                height: auto;
+                padding: 18px 0;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 64px 0;
+            }
+
+            h1 {
+                font-size: clamp(4rem, 18vw, 6rem);
+            }
+
+            .services-grid,
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                min-height: 360px;
+            }
+
+            .section {
+                padding: 72px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+
+    <header class="site-header">
+        <div class="container nav">
+            <a href="#top" class="brand" aria-label="Dream By Daylight home">
+                <span class="brand-mark">D</span>
+                <span>Dream By Daylight</span>
+            </a>
+
+            <nav class="nav-links" aria-label="Hoofdnavigatie">
+                <a href="#work">Werk</a>
+                <a href="#services">Aanbod</a>
+                <a href="#about">Studio</a>
+                <a href="#process">Proces</a>
+                <a href="#contact" class="nav-cta">Start een idee</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="top">
+        <section class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <div class="eyebrow reveal">Creative web studio / Portfolio</div>
+                    <h1 class="reveal delay-1">
+                        <span class="hero-word">Websites</span>
+                        <span class="hero-word">with soul.</span>
+                    </h1>
+                    <p class="hero-copy reveal delay-2">
+                        Dream By Daylight ontwerpt digitale ervaringen met sfeer, ritme en karakter. Geen standaard bedrijfssite, maar een creatief portfolio voor merken, makers en projecten die visueel mogen blijven hangen.
+                    </p>
+                    <div class="hero-actions reveal delay-3">
+                        <a href="#work" class="button button-primary">Bekijk werk</a>
+                        <a href="#contact" class="button button-secondary">Vertel je idee</a>
+                    </div>
+                </div>
+
+                <div class="visual-card reveal delay-2" aria-hidden="true">
+                    <div class="orb one"></div>
+                    <div class="orb two"></div>
+                    <div class="floating-label label-one">
+                        <strong>Creative direction</strong>
+                        Visual identity, storytelling & webdesign.
+                    </div>
+                    <div class="floating-label label-two">
+                        <strong>Daylight system</strong>
+                        Portfolio-first. Atmosphere-driven.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <div class="section-kicker">Selected work</div>
+                        <h2>Concepten die voelen als een wereld.</h2>
+                    </div>
+                    <p class="section-text">
+                        Gebruik deze cards later als echte case studies. Voor nu tonen ze de richting: websites met een duidelijke sfeer, een visuele identiteit en genoeg ruimte om verhalen te vertellen.
+                    </p>
+                </div>
+
+                <div class="work-grid">
+                    <article class="project-card large">
+                        <div class="project-top">
+                            <span class="tag">Webdesign</span>
+                            <span class="project-number">01</span>
+                        </div>
+                        <div>
+                            <h3>Artist portfolio for a visual maker</h3>
+                            <p>Een atmosferische portfolio-site met grote visuals, zachte overgangen en ruimte voor exposities, collecties en verhalen achter het werk.</p>
+                        </div>
+                    </article>
+
+                    <article class="project-card small">
+                        <div class="project-top">
+                            <span class="tag">Brand mood</span>
+                            <span class="project-number">02</span>
+                        </div>
+                        <div>
+                            <h3>Dreamlike identity system</h3>
+                            <p>Een visuele richting voor een merk dat minder wil uitleggen en meer wil laten voelen.</p>
+                        </div>
+                    </article>
+
+                    <article class="project-card small">
+                        <div class="project-top">
+                            <span class="tag">Storytelling</span>
+                            <span class="project-number">03</span>
+                        </div>
+                        <div>
+                            <h3>Editorial landing experience</h3>
+                            <p>Een landingspagina met magazine-gevoel: grote typografie, ritmische secties en sterke narratieve opbouw.</p>
+                        </div>
+                    </article>
+
+                    <article class="project-card large">
+                        <div class="project-top">
+                            <span class="tag">Creative build</span>
+                            <span class="project-number">04</span>
+                        </div>
+                        <div>
+                            <h3>Interactive studio presence</h3>
+                            <p>Een portfolio dat werkt als visitekaartje, moodboard en verkoopspagina tegelijk — zonder te corporate te worden.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <div class="section-kicker">Aanbod</div>
+                        <h2>Voor ideeën die vorm zoeken.</h2>
+                    </div>
+                    <p class="section-text">
+                        Dream By Daylight kan starten bij een vaag gevoel, een ruwe schets of een bijna-klaar project. De focus ligt op websites, visuele systemen en creatieve begeleiding.
+                    </p>
+                </div>
+
+                <div class="services-grid">
+                    <article class="service-card">
+                        <div class="service-icon">01</div>
+                        <h3>Creative webdesign</h3>
+                        <p>Visueel sterke websites met eigen karakter, ontworpen voor portfolio’s, makers, kleine merken en creatieve projecten.</p>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">02</div>
+                        <h3>Frontend build</h3>
+                        <p>HTML, CSS en later Laravel Blade. Clean, responsive en klaar om verder te groeien.</p>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">03</div>
+                        <h3>Visual direction</h3>
+                        <p>Kleur, typografie, compositie, sfeerbeelden en designregels voor een herkenbare digitale stijl.</p>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">04</div>
+                        <h3>Creative process</h3>
+                        <p>Begeleiding bij concepten, storytelling, structuur, copy en het vertalen van ideeën naar concrete pagina’s.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container about-panel">
+                <div class="portrait-card" aria-hidden="true">
+                    <div class="abstract-shape"></div>
+                </div>
+
+                <div class="about-copy">
+                    <div class="section-kicker">Studio</div>
+                    <h2>Niet zomaar bouwen. Eerst voelen.</h2>
+                    <p>
+                        Dream By Daylight is een creatieve ruimte voor digitale projecten die meer nodig hebben dan een nette layout. Het vertrekt vanuit sfeer, intuïtie en verhaal — daarna pas komen structuur, techniek en conversie.
+                    </p>
+                    <p>
+                        De stijl is warm, artistiek en digitaal. Denk aan websites die aanvoelen als een miniwereld: portfolio’s, landing pages, visuele identiteiten en online ervaringen die niet proberen te roepen, maar blijven nazinderen.
+                    </p>
+
+                    <div class="stats">
+                        <div class="stat">
+                            <strong>01</strong>
+                            <span>Creatieve richting</span>
+                        </div>
+                        <div class="stat">
+                            <strong>02</strong>
+                            <span>Webdesign</span>
+                        </div>
+                        <div class="stat">
+                            <strong>03</strong>
+                            <span>Frontend</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <div class="section-kicker">Proces</div>
+                        <h2>Van gevoel naar scherm.</h2>
+                    </div>
+                    <p class="section-text">
+                        Een eenvoudig proces dat creatief genoeg blijft om te ontdekken, maar gestructureerd genoeg is om effectief te bouwen.
+                    </p>
+                </div>
+
+                <div class="process-list">
+                    <article class="process-item">
+                        <span>01</span>
+                        <h3>Atmosphere</h3>
+                        <p>We bepalen de vibe: kleuren, referenties, doelgroep, verhaal en het gevoel dat de website moet oproepen.</p>
+                    </article>
+                    <article class="process-item">
+                        <span>02</span>
+                        <h3>Structure</h3>
+                        <p>We vertalen het idee naar pagina’s, contentblokken, navigatie en duidelijke gebruikersflows.</p>
+                    </article>
+                    <article class="process-item">
+                        <span>03</span>
+                        <h3>Design</h3>
+                        <p>We bouwen een visuele richting met typografie, ritme, spacing, cards, beelden en interacties.</p>
+                    </article>
+                    <article class="process-item">
+                        <span>04</span>
+                        <h3>Build</h3>
+                        <p>De site wordt omgezet naar nette HTML/CSS en later eventueel naar Laravel Blade, componenten en CMS-logica.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="contact-card">
+                    <div class="section-kicker">Contact</div>
+                    <h2>Heb je een idee dat nog geen vorm heeft?</h2>
+                    <p>
+                        Vertel waar je aan denkt. Een portfolio, een creatieve website, een visuele identiteit of gewoon een vaag gevoel dat digitaal moet worden. Dat is vaak het beste startpunt.
+                    </p>
+                    <div class="contact-links">
+                        <a href="mailto:hello@dreambydaylight.be" class="button button-primary">hello@dreambydaylight.be</a>
+                        <a href="#work" class="button button-secondary">Bekijk portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <span>© 2026 Dream By Daylight</span>
+            <span>Creative webdesign · Visual direction · Digital storytelling</span>
+        </div>
+    </footer>
+</body>
+</html>
